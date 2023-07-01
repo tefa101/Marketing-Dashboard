@@ -44,7 +44,13 @@ def report(content):
     report_file = open('report_file.txt', 'w')
     report_file.write(content)
 
-most_important_cols = ['education' , 'age' , 'campaign' , 'deposit' , 'job' , 'duration' , 'marital' , 'housing' , 'balance' , 'loan' ,'day' ]
+# most_important_cols = ['education' , 'age' , 'campaign' , 'deposit' , 'job' , 'duration' , 'marital' , 'housing' , 'balance' , 'loan' ,'day' ]
+# specificData = data[most_important_cols]
+
+most_important_cols = ['education' , 'age' , 'campaign' , 'deposit' , 'job' , 'duration' , 'marital' , 'housing' , 'balance' , 'loan' ,'day' , 'contact' ]
+for col in most_important_cols:
+    if col not in data.columns :
+        most_important_cols.remove(col)
 specificData = data[most_important_cols]
 print(data.head())
 st.subheader("	:pushpin: Most important columns")
@@ -108,7 +114,7 @@ try:
         draw_vs_new(data , selected_columns , title = "multi Columns Comparison" )
 except:
     pass
-draw_vs(data  , 'marital' , 'deposit' , 'marital vs deposit' , 'deposit')
+draw_vs(data  , 'marital' , 'housing' , 'marital vs housing' , 'marital')
 
         
 st.subheader('## :bar_chart: Categorical Variables vs Target')
@@ -203,4 +209,4 @@ try:
         draw_vs_new(data , selected_columns , title = "multi Columns Comparison" )
 except:
     pass
-draw_vs(data  , 'marital' , 'deposit' , 'marital vs deposit' , 'deposit')
+draw_vs(data  , 'marital' , 'education' , 'marital vs education' , 'marital')
