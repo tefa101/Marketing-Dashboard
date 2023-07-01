@@ -3,3 +3,6 @@ warnings
 hashlib
 streamlit_extras
 st_pages
+pandas
+seaborn
+sqlite3

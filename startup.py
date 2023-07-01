@@ -18,8 +18,6 @@ from streamlit_lottie import st_lottie
 import hashlib
 import sqlite3
 import streamlit as st 
-from plotly.express import *
-import seaborn as sns
 import warnings
 from streamlit_extras.switch_page_button import switch_page
 
