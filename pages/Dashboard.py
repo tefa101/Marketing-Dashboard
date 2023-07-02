@@ -6,12 +6,19 @@ import sys , os
 import matplotlib.pyplot as plt  # visualization
 import seaborn as sns  # visualization
 import random
+import docx2txt
+import textract
+
+warnings.filterwarnings('ignore')
+
 
 if 'page' not in st.session_state :
     st.session_state['page'] = 'Dashboard.py'
 if 'file' not in st.session_state :
     st.session_state['file'] = None
-warnings.filterwarnings('ignore')
+if 'filename' not in st.session_state :
+    st.session_state['filename'] = None
+
 
 
 st.set_page_config(
@@ -22,8 +29,20 @@ st.set_page_config(
 
 st.title(':bar_chart: Marketing Dashboard')
 st.markdown('<style>div.block-container{padding-top:1rem;}</style>' , unsafe_allow_html=True)
+
+docx_file = st.file_uploader(":page_with_curl: Upload Document" , type =["txt"])
+if st.button("Process"):
+    if docx_file is not None:
+        file_details = {"filename":docx_file.name , "filetype":docx_file.type , "filesize":docx_file.size}
+        st.write(file_details)
+if st.button("Read"): 
+    raw_text = str(docx_file.read() , "utf-8")
+    st.text(raw_text)
+st.warning('Please Upload Text file Contains Description for your Dataset')
+
 if  'uploaded_file' not in st.session_state:
     st.session_state['uploaded_file'] = False
+    
 st.subheader('Logged in as : ' + str(st.session_state['username']))
 def load_file():
     file = st.file_uploader(':file_folder: Upload your CSV file', type='csv')
@@ -117,7 +136,7 @@ except:
 draw_vs(data  , 'marital' , 'housing' , 'marital vs housing' , 'marital')
 
         
-st.subheader('## :bar_chart: Categorical Variables vs Target')
+st.subheader(':bar_chart: Categorical Variables vs Target')
 
 def outlier_thresholds(dataframe, col_name, q1=0.05, q3=0.95):
     quartile1 = dataframe[col_name].quantile(q1)
@@ -181,7 +200,7 @@ for col in num_cols:
 # for col in most_important_cols:
 #     num_summary(data, col, True)
     
-st.subheader('Correlation summary')
+st.subheader('🧬 Correlation summary')
 def correlation_matrix(df, cols):
      fig = plt.gcf()
     #  fig.set_size_inches(8, 6)

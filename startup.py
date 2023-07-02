@@ -137,7 +137,7 @@ def main():
        
          
         else :
-            html_temp = """<div style="background-color:tomato"><p style ="color:white;font-size:25px;">please login first</p></div>"""
+            html_temp = """<h4>Please login first<h4>"""
             st.markdown(html_temp,unsafe_allow_html=True)
             
         # signup -> choices ?? 
