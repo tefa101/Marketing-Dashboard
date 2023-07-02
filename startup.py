@@ -73,11 +73,6 @@ def view_all_users():
 	data = c.fetchall()
 	return data
 
-
-
-
-
-
 create_admin_table()
 
 
