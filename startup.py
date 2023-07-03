@@ -1,12 +1,4 @@
 from st_pages import Page, add_page_title, show_pages
-show_pages(
-    [
-        Page('startup.py' , "Authentication" , ":lock:"),
-        Page('pages/About_Us.py' , "About_Us" , "👩🏻‍💻"),
-        Page('pages/Contact_Us.py' , "Contact" , "💬"),
-        
-    ]
-)
 
 from pathlib import Path
 import pandas as pd 
@@ -20,6 +12,22 @@ import sqlite3
 import streamlit as st 
 import warnings
 from streamlit_extras.switch_page_button import switch_page
+st.set_page_config(
+    page_title="Authentication",
+    page_icon=":lock:",
+    layout="wide",
+)
+show_pages(
+    [
+        Page('startup.py' , "Authentication" , ":lock:"),
+        Page('pages/About_Us.py' , "About_Us" , "👩🏻‍💻"),
+        Page('pages/Contact_Us.py' , "Contact" , "💬"),
+        
+    ]
+)
+
+
+
 
 if 'page' not in st.session_state:
     st.session_state['page'] = 'startup.py'
@@ -41,7 +49,7 @@ conn = sqlite3.connect('data.db')
 c = conn.cursor()
 # DB  Functions
 def create_usertable():
-	c.execute('CREATE TABLE IF NOT EXISTS userstable(id INTEGER primary key , username TEXT unique,password TEXT)')
+	c.execute('CREATE TABLE IF NOT EXISTS userstable(id INTEGER primary key , username TEXT unique,password TEXT , filename TEXT ,file BLOB)')
 
 def create_admin_table():
     c.execute('create table if not exists admintable(adminname text,password text)')
@@ -74,7 +82,8 @@ def view_all_users():
 	return data
 
 create_admin_table()
-
+add_admin('Marioma' , make_hashes('12112001'))
+add_admin('Tefa' , make_hashes('124512'))
 
 if 'username' not in st.session_state:
     st.session_state['username'] = None

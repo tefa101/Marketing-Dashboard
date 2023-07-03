@@ -8,7 +8,7 @@ import seaborn as sns  # visualization
 import random
 import docx2txt
 import textract
-
+import sqlite3
 warnings.filterwarnings('ignore')
 
 
@@ -18,13 +18,19 @@ if 'file' not in st.session_state :
     st.session_state['file'] = None
 if 'filename' not in st.session_state :
     st.session_state['filename'] = None
+conn = sqlite3.connect('data.db')
+c = conn.cursor()
 
+def add_file(username , filename , file):
+    c.execute('update userstable set filename = ? , file = ? where username = ?' , (filename , file , username))
+    conn.commit()
+    
 
 
 st.set_page_config(
     page_title="Dashboard",
     page_icon=":bar_chart:",
-    layout="wide",
+    # layout="wide",
 )
 
 st.title(':bar_chart: Marketing Dashboard')
@@ -49,6 +55,8 @@ def load_file():
     if file is None :
         st.warning('Please upload a valid  CSV file')
         sys.exit(0)
+    bytes = file.getvalue()
+    add_file(st.session_state['username'] , file.name , bytes)
     df = pd.read_csv(file)
     st.dataframe(df.head())
     data = df.copy()
