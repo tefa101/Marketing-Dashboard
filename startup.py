@@ -82,8 +82,7 @@ def view_all_users():
 	return data
 
 create_admin_table()
-add_admin('Marioma' , make_hashes('12112001'))
-add_admin('Tefa' , make_hashes('124512'))
+
 
 if 'username' not in st.session_state:
     st.session_state['username'] = None
