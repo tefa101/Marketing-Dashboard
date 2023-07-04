@@ -134,7 +134,7 @@ def draw_vs_new(dataframe  , listofColumns , title):
 
 try:
     
-    selected_columns = st.multiselect("Select two columns", data.columns)
+    selected_columns = st.multiselect("Select two columns", cat_cols)
     if len(selected_columns) == 2 :
         draw_vs(data , selected_columns[0] , selected_columns[1] , title = str(selected_columns[0] + ' ' + selected_columns[1]) , legend=selected_columns[1])
     elif len(selected_columns) == 3 :
